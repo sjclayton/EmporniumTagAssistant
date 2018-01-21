@@ -36,7 +36,7 @@ $j('.autoresults input:button').addClass('reset');
 
 $j('#hidebtn').click(function() {
     $j('#hidebtn').toggleClass('active');
-    $j('#tagmanager').toggle("fast");
+    $j('#tagmanager').slideToggle("fast");
     if ($j('#hidebtn').hasClass('active')) {
         $j('#hidebtn').text('Hide');
     } else {
@@ -73,7 +73,13 @@ $j('.controls').css({
     backgroundColor: "rgba(0,0,0,0.35)",
     margin: "5px",
     borderRadius: "5px",
-    padding: "3px"
+    padding: "3px",
+    minWidth: "165px"
+});
+$j('.controls button').css({
+    padding: "1px 3px",
+    margin: "2px",
+    width: "50px"
 });
 $j('#tagmanager').css({
     float: "right",
