@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         EmporniumTagAssistant-testing
 // @namespace    SJC
-// @version      1.2-rc1
+// @version      1.2-rc2
 // @description  Userscript to add a tagging assistant to Empornium
-// @author       sjclayton
+// @author       sjclayton / koukol
 // @match        *://*.empornium.me/torrents.php?*
 // @match        *://*.empornium.sx/torrents.php?*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
@@ -15,33 +15,44 @@ var $j = $.noConflict(true);
 
 /// User variables
 // Feel free to modify any of the tags here or, add your own to the custom list below.
-var general = ["480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov"];
+var general = ["480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov", "1on1"];
 var positions = ["doggy.style", "missionary", "prone.bone", "cowgirl", "reverse.cowgirl", "spooning", "sideways", "anal.doggy", "anal.missionary", "anal.prone.bone", "anal.cowgirl", "anal.reverse.cowgirl", "anal.spooning", "anal.sideways"];
 var acts = ["blowjob", "handjob", "creampie", "squirting", "anal", "facial", "ball.sucking"];
-var common = ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "small.tits", "medium.tits", "big.tits", "big.ass", "shaved"];
+var features = ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "small.tits", "medium.tits", "big.tits", "big.ass", "shaved"];
+var clothing = ["lingerie", "stockings", "garter.belt", "fishnets"];
 
 // Customize your section colours here.
-var generalColour = "#0074D9";
-var positionsColour = "#2ECC40";
-var actsColour = "#FF4136";
-var commonColour = "#B10DC9";
-var customColour = "#39CCCC";
+var generalColour = "#005cad";
+var actsColour = "#cc342b";
+var positionsColour = "#24a333";
+var featuresColour = "#8d0aa0";
+var clothingColour = "#2da3a3";
+var customColour = "#6a103c";
 
 
 /// Script setup -- Do not change anything below unless you know what you're doing, things might break.
 var customSaved = localStorage.getItem("customTagArray");
 if (customSaved) {
     var customTemp = JSON.parse(customSaved);
-    var custom = customTemp.split(",");
+    var trimmed = customTemp.replace(/ /g, '');
+    var custom = trimmed.split(",");
 } else {
     var custom = [];
 }
 
-general.name = "General";
-positions.name = "Positions";
-acts.name = "Acts";
-common.name = "Common";
-custom.name = "Custom";
+general.id = "General";
+positions.id = "Positions";
+acts.id = "Acts";
+features.id = "Body\ Features";
+clothing.id = "Clothing";
+custom.id = "Custom";
+
+general.name = "general";
+positions.name = "positions";
+acts.name = "acts";
+features.name = "features";
+clothing.name = "clothing";
+custom.name = "custom";
 
 $j("<div class='manwrapper'></div>").appendTo('.box_tags');
 $j("<style type='text/css'> #listbox .highlight{background-color: black; border-color: white; border-width: 1px; border-style: solid;} </style>").appendTo(".manwrapper");
@@ -61,7 +72,6 @@ $j('#hidebtn').click(function() {
     }
 });
 
-
 if ($j('link[title="afterdark"]').length) {
     // it exists
     console.log('Afterdark Detected!');
@@ -72,7 +82,7 @@ $j('#editbtn').click(function() {
     if (saved !== null) {
         var savedTags = saved.replace(/"/g, '');
     }
-    var input = prompt('Enter your custom tags here, separated by commas using the format "tag1, tag2, tag3" and so on.', savedTags);
+    var input = prompt('Enter your custom tags here, separated by commas using the format "tag1, tag2, tag3" and so on.\n\nIf you accidentally delete your list from the box below, click Cancel and your changes won\'t be saved.', savedTags);
     if (input !== null || '') {
         localStorage.setItem("customTagArray", JSON.stringify(input));
         location.reload();
@@ -81,23 +91,29 @@ $j('#editbtn').click(function() {
     }
 });
 
+
 function inputLayout(list) {
     var name = list.name;
-    $j("#tagmanager").append($j("<p class='header'>" + name + "</p>"));
+    var id = list.id;
     var div = "<div class=" + name + " id='listbox'" + ">";
+    var divclose = "</div>";
+    var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+
+    $j("#tagmanager").append($j("<p class='header'>" + id + "</p>"));
     $j("#tagmanager").append($j(div));
+    list.sort(collator.compare);
     $j.each(list, function(index, value) {
         var checkbox = "<input type='checkbox' id=" + value + " value=" + value + " name=" + value + "><label for=" + value + ">" + value + "</label>";
         $j("." + (name)).append($j(checkbox));
     });
-    var divclose = "</div>";
     $j("#tagmanager").append($j(divclose));
 }
 
 inputLayout(general);
 inputLayout(acts);
 inputLayout(positions);
-inputLayout(common);
+inputLayout(features);
+inputLayout(clothing);
 if (customSaved) {
     inputLayout(custom);
 }
@@ -149,19 +165,22 @@ $j('p.header').css({
 $j('#tagmanager #listbox').css({
     padding: "5px 2px"
 });
-$j('.General').css({
+$j('.general').css({
     backgroundColor: generalColour
 });
-$j('.Acts').css({
+$j('.acts').css({
     backgroundColor: actsColour
 });
-$j('.Positions').css({
+$j('.positions').css({
     backgroundColor: positionsColour
 });
-$j('.Common').css({
-    backgroundColor: commonColour
+$j('.features').css({
+    backgroundColor: featuresColour
 });
-$j('.Custom').css({
+$j('.clothing').css({
+    backgroundColor: clothingColour
+});
+$j('.custom').css({
     backgroundColor: customColour
 });
 
