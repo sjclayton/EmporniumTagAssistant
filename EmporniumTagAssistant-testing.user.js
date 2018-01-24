@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EmporniumTagAssistant-testing
 // @namespace    SJC
-// @version      1.2-rc3
+// @version      1.2-rc4-Final
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
 // @match        *://*.empornium.me/torrents.php?*
@@ -58,11 +58,11 @@ custom.name = "custom";
 
 $j("<div class='manwrapper'></div>").appendTo('.box_tags');
 if ($j('link[title="afterdark"]').length) {
-    $j("<style type='text/css'> #listbox .highlight{background-color: #5A8BB8; border-color: #7BA3C1; border-width: 1px; border-style: solid; color: white;} </style>").appendTo(".manwrapper");
+    $j("<style type='text/css'> #listbox .highlight{background-color: #5A8BB8; border-color: #7BA3C1; border-width: 1px; border-style: solid; color: white; fontSize: 1em;} </style>").appendTo(".manwrapper");
 } else {
     $j("<style type='text/css'> #listbox .highlight{background-color: black; border-color: white; border-width: 1px; border-style: solid;} </style>").appendTo(".manwrapper");
 }
-$j("<center><div class='controls'>Tag Assistant: <button class='' id='hidebtn' title='Show/Hide Tag Assistant'>Show</button> <button id='editbtn' title='Add/Edit Custom Tags'>Edit</button> <button class='reset' title='Clear All Selected Tags'>Reset</button></div></center>").appendTo('.manwrapper');
+$j("<center><div class='controls'><p class='header'>Tag Assistant</p><button class='' id='hidebtn' title='Show/Hide Tag Assistant'>Show</button> <button id='editbtn' title='Add/Edit Custom Tags'>Edit</button> <button class='reset' title='Clear All Selected Tags'>Reset</button> <button id='floatbtn' title='Toggle Float'>&#8648;</button></div></center>").appendTo('.manwrapper');
 $j("<div id='tagmanager'></div>").appendTo('.manwrapper');
 $j('.autoresults input:button').addClass('reset');
 
@@ -71,7 +71,7 @@ $j('#hidebtn').click(function() {
     $j('#tagmanager').slideToggle('fast');
     if ($j('#hidebtn').hasClass('active')) {
         $j('#hidebtn').text('Hide');
-        Cookies.set('showManager', true);
+        Cookies.set('showManager', true, { expires: 90 });
     } else {
         $j('#hidebtn').text('Show');
         Cookies.remove('showManager');
@@ -80,7 +80,7 @@ $j('#hidebtn').click(function() {
 
 $j('#editbtn').click(function() {
     var saved = localStorage.getItem("customTagArray");
-    if (saved !== null) {
+    if (saved) {
         var savedTags = saved.replace(/"/g, '');
     }
     var input = prompt('Add/edit your custom tags here, separated by commas using the format "tag1, tag2, tag3" and so on.\n\nIf you accidentally delete your list from the box below, click Cancel and your changes won\'t be saved.', savedTags);
@@ -92,6 +92,23 @@ $j('#editbtn').click(function() {
     }
 });
 
+$j('#floatbtn').click(function() {
+    $j('#tagmanager').toggleClass('floating');
+    if ($j('#tagmanager').hasClass('floating')) {
+        $j('#tagmanager').css({float: "none", marginBottom: "10px"});
+        $j('#tagmanager').detach().insertBefore('#user-sidebar');
+        $j('#hidebtn').addClass('active');
+        $j('#hidebtn').text('Hide');
+        $j('#hidebtn').prop('hidden', true);
+        $j('#editbtn').prop('hidden', true);
+        $j('#tagmanager').show();
+    } else {
+        $j('#tagmanager').css({float: "right"});
+        $j('#hidebtn').prop('hidden', false);
+        $j('#editbtn').prop('hidden', false);
+        $j('#tagmanager').detach().appendTo('.manwrapper');
+    }
+});
 
 function inputLayout(list) {
     var name = list.name;
@@ -115,30 +132,32 @@ inputLayout(acts);
 inputLayout(positions);
 inputLayout(features);
 inputLayout(clothing);
-if (customSaved) {
+if (trimmed) {
     inputLayout(custom);
 }
 
 // Style stuff
 
 if ($j('link[title="afterdark"]').length) {
-    console.log('Afterdark Detected!');
+    console.log('ETA: Afterdark Detected!');
     $j('.manwrapper').css({width: "auto", color: "white"});
-    $j('.controls').css({float: "right", backgroundColor: "rgba(0,0,0,0.35)", margin: "5px", borderRadius: "5px", padding: "3px", width: "230px", color: "#ccc", fontWeight: "bold"});
+    $j('.controls').css({float: "right", backgroundColor: "#111", margin: "5px 0px", padding: "3px 0px", width: "175px", color: "#ccc", fontWeight: "bold"});
     $j('.controls button').css({margin: "5px 1px", width: "40px", backgroundColor: "#666", borderColor: "#DDD", color: "#000", fontFamily: "Arial", fontSize: "13px"});
-    $j('#tagmanager').css({float: "right", clear: "both", backgroundColor: "#111", borderRadius: "5px", display: "none", padding: "10px"});
-    $j('#listbox input').css({display: "none"});
-    $j('#tagmanager label').css({borderRadius: "5px", padding: "2px 5px", margin: "1px 3px", display: "inline-block", cursor: "pointer"});
+    $j('.controls #floatbtn').css({width: "25px"});
     $j('p.header').css({fontSize: "1em", fontWeight: "bold", backgroundColor: "#131327", margin: "0px", textAlign: "center", color: "#ccc"});
+    $j('#listbox input').css({display: "none"});
+    $j('#tagmanager').css({float: "right", clear: "both", backgroundColor: "#111", display: "none", padding: "0px"});
+    $j('#tagmanager label').css({borderRadius: "3px", padding: "2px 5px", margin: "1px 3px", display: "inline-block", cursor: "pointer"});
     $j('#tagmanager #listbox').css({padding: "5px 2px", backgroundColor: "#111", color: "#6083E8", textAlign: "center", fontSize: "1em"});
 } else {
 $j('.manwrapper').css({width: "auto", color: "white"});
-$j('.controls').css({float: "right", backgroundColor: "rgba(0,0,0,0.35)", margin: "5px", borderRadius: "5px", padding: "3px", width: "230px"});
-$j('.controls button').css({margin: "5px 1px", width: "40px"});
-$j('#tagmanager').css({float: "right", clear: "both", backgroundColor: "rgba(255,255,255,0.15)", borderRadius: "5px", display: "none", padding: "10px"});
-$j('#listbox input').css({display: "none"});
-$j('#tagmanager label').css({fontSize: "0.75rem", fontWeight: "bold", borderRadius: "5px", padding: "2px 5px", margin: "1px 3px", display: "inline-block", cursor: "pointer"});
+$j('.controls').css({float: "right", backgroundColor: "rgba(255,255,255,0.15)", margin: "5px 0px", borderRadius: "5px", padding: "3px", width: "200px"});
+$j('.controls button').css({margin: "5px 1px", width: "50px"});
+$j('.controls #floatbtn').css({width: "25px"});
 $j('p.header').css({fontSize: "0.5rem", fontWeight: "bold", backgroundColor: "gray", margin: "0px"});
+$j('#listbox input').css({display: "none"});
+$j('#tagmanager').css({float: "right", clear: "both", backgroundColor: "rgba(255,255,255,0.15)", borderRadius: "5px", display: "none", padding: "10px", color: "white"});
+$j('#tagmanager label').css({fontSize: "0.75rem", fontWeight: "bold", borderRadius: "5px", padding: "2px 5px", margin: "1px 3px", display: "inline-block", cursor: "pointer"});
 $j('#tagmanager #listbox').css({padding: "5px 2px"});
 $j('.general').css({backgroundColor: generalColour});
 $j('.acts').css({backgroundColor: actsColour});
@@ -162,6 +181,7 @@ function updateTextArea() {
     $j('#tagmanager :checked').each(function(i) {
         allVals.push((i != 0 ? "" : "") + $j(this).val());
     });
+
     var str = new String(allVals);
     var output = str.split(' ');
     var taglist = new String(output);
