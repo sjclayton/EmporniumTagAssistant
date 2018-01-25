@@ -40,8 +40,7 @@ var customColour = "#6a103c";
 var customSaved = localStorage.getItem("customTagArray");
 if (customSaved) {
     var customTemp = JSON.parse(customSaved);
-    var trimmed = customTemp.replace(/ /g, '');
-    var custom = trimmed.split(",");
+    var custom = customTemp.replace(/ /g, '').split(",");
 } else {
     var custom = [];
 }
@@ -116,9 +115,7 @@ $j('#floatbtn').click(function() {
     if ($j('#tagmanager').hasClass('floating')) {
         $j('#tagmanager').css({float: "none", marginBottom: "10px"});
         $j('#tagmanager').detach().insertBefore('#user-sidebar');
-        $j('#hidebtn').addClass('active');
-        $j('#hidebtn').text('Hide');
-        $j('#hidebtn').prop('hidden', true);
+        $j('#hidebtn').addClass('active').text('Hide').prop('hidden', true);
         $j('#editbtn').prop('hidden', true);
         $j('#tagmanager').show();
     } else {
@@ -128,8 +125,7 @@ $j('#floatbtn').click(function() {
         if (Cookies.get('showManager', true)) {
             $j('#tagmanager').show();
         } else {
-            $j('#hidebtn').removeClass('active');
-            $j('#hidebtn').text('Show');
+            $j('#hidebtn').removeClass('active').text('Show');
             Cookies.remove('showManager');
             $j('#tagmanager').hide();
         }
@@ -159,7 +155,7 @@ inputLayout(acts);
 inputLayout(positions);
 inputLayout(features);
 inputLayout(clothing);
-if (trimmed) {
+if (customTemp) {
     inputLayout(custom);
 }
 
@@ -215,9 +211,9 @@ function updateTextArea() {
     var output = str.split(' ');
     var taglist = new String(output);
     var taginput = taglist.replace(/,/g, ' ');
+
     $j('input#taginput').val(taginput);
-    $j(this).nextUntil('input').toggleClass('active');
-    $j(this).nextUntil('input').toggleClass('highlight');
+    $j(this).nextUntil('input').toggleClass('active').toggleClass('highlight');
 }
 
 $j(function() {
@@ -225,8 +221,7 @@ $j(function() {
     updateTextArea();
 
     if (Cookies.get('showManager', true)) {
-        $j('#hidebtn').addClass('active');
-        $j('#hidebtn').text('Hide');
+        $j('#hidebtn').addClass('active').text('Hide');
         $j('#tagmanager').show();
     }
 });
