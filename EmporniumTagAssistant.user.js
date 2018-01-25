@@ -71,14 +71,17 @@ $j("<center><div class='controls'><p class='header'>Tag Assistant</p><button cla
 $j("<div id='tagmanager'></div>").appendTo('.manwrapper');
 $j('.autoresults input:button').addClass('reset');
 
+
 $j('#hidebtn').click(function() {
     $j('#hidebtn').toggleClass('active');
     $j('#tagmanager').slideToggle('fast');
     if ($j('#hidebtn').hasClass('active')) {
         $j('#hidebtn').text('Hide');
+        $j('#editbtn').prop('hidden', false);
         Cookies.set('showManager', true, { expires: 90 });
     } else {
         $j('#hidebtn').text('Show');
+        $j('#editbtn').prop('hidden', true);
         Cookies.remove('showManager');
     }
 });
@@ -121,8 +124,8 @@ $j('#floatbtn').click(function() {
     } else {
         $j('#tagmanager').css({float: "right"});
         $j('#hidebtn').prop('hidden', false);
-        $j('#editbtn').prop('hidden', false);
         if (Cookies.get('showManager', true)) {
+            $j('#editbtn').prop('hidden', false);
             $j('#tagmanager').show();
         } else {
             $j('#hidebtn').removeClass('active').text('Show');
@@ -221,7 +224,10 @@ $j(function() {
     updateTextArea();
 
     if (Cookies.get('showManager', true)) {
+        $j('#editbtn').prop('hidden', false);
         $j('#hidebtn').addClass('active').text('Hide');
         $j('#tagmanager').show();
+    } else {
+        $j('#editbtn').prop('hidden', true);
     }
 });
