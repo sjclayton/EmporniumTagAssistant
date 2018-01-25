@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         EmporniumTagAssistant-testing
+// @name         EmporniumTagAssistant
 // @namespace    SJC
-// @version      1.2-rc4-Final
+// @version      1.2
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
 // @match        *://*.empornium.me/torrents.php?*
@@ -13,9 +13,11 @@
 // ==/UserScript==
 var $j = $.noConflict(true);
 
-/// User variables
-// Feel free to modify any of the tags here or add your own. (Any changes made here will be overwritten on a script update, so make sure you disable auto update if you care about your changes.)
+/// User variables (Any changes made here will be overwritten on a script update, so make sure you disable auto update if you care about your changes.)
+
+// Feel free to modify any of the tags here or add your own.
 // Tags added to the Custom section will be saved and persist across script updates.
+
 var general = ["480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov", "1on1"];
 var positions = ["doggy.style", "missionary", "prone.bone", "cowgirl", "reverse.cowgirl", "spooning", "sideways", "anal.doggy", "anal.missionary", "anal.prone.bone", "anal.cowgirl", "anal.reverse.cowgirl", "anal.spooning", "anal.sideways"];
 var acts = ["blowjob", "handjob", "creampie", "squirting", "anal", "facial", "ball.sucking"];
@@ -23,6 +25,7 @@ var features = ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "s
 var clothing = ["lingerie", "stockings", "garter.belt", "fishnets"];
 
 // Customize your section colours here. (Only used if not using the Afterdark stylesheet.)
+
 var generalColour = "#005cad";
 var actsColour = "#24a333";
 var positionsColour = "#cc342b";
@@ -32,7 +35,8 @@ var customColour = "#6a103c";
 
 
 
-/// Script setup -- Do not change anything below unless you know what you're doing, things might break.
+/// Script -- Do not change anything below unless you know what you're doing, things might break.
+
 var customSaved = localStorage.getItem("customTagArray");
 if (customSaved) {
     var customTemp = JSON.parse(customSaved);
@@ -55,6 +59,8 @@ acts.name = "acts";
 features.name = "features";
 clothing.name = "clothing";
 custom.name = "custom";
+
+// Layout setup
 
 $j("<div class='manwrapper'></div>").appendTo('.box_tags');
 if ($j('link[title="afterdark"]').length) {
@@ -83,13 +89,26 @@ $j('#editbtn').click(function() {
     if (saved) {
         var savedTags = saved.replace(/"/g, '');
     }
-    var input = prompt('Add/edit your custom tags here, separated by commas using the format "tag1, tag2, tag3" and so on.\n\nIf you accidentally delete your list from the box below, click Cancel and your changes won\'t be saved.', savedTags);
-    if (input !== null || '') {
-        localStorage.setItem("customTagArray", JSON.stringify(input));
-        location.reload();
+    $j('#editbtn').prop('hidden', true);
+    $j("<div id='edit_custom'><p class='header'>Add/edit your custom tags here, separated by commas using the format 'tag1, tag2, tag3' and so on.</p><center><input id='custom_input' type='text' spellcheck='false' style='font: 10pt monospace;'></input>  <button class='controls' id='savebtn'>Save</button></center></div>").insertBefore('#tagmanager p.header:first-child');
+    $j('#edit_custom').css({marginBottom: "10px"});
+    $j('#edit_custom input').css({width: "500px", margin: "5px"});
+    if ($j('link[title="afterdark"]').length) {
+        $j('#savebtn').css({margin: "5px 1px", width: "40px", backgroundColor: "#666", borderColor: "#DDD", color: "#000", fontFamily: "Arial", fontSize: "13px", lineHeight: "1.25em"});
+        $j('p.header').css({fontSize: "1em", fontWeight: "bold", backgroundColor: "#131327", margin: "0px", textAlign: "center", color: "#ccc"});
     } else {
-        return;
+        $j('#savebtn').css({margin: "5px 1px", width: "50px", lineHeight: "1.25em"});
+        $j('p.header').css({fontSize: "0.5rem", fontWeight: "bold", backgroundColor: "gray", margin: "0px"});
     }
+    $j('#custom_input').val(savedTags);
+    $j('#savebtn').click(function() {
+        if ($j('#custom_input').val() !== null || '') {
+            localStorage.setItem("customTagArray", JSON.stringify($j('#custom_input').val()));
+            location.reload();
+        } else {
+            return;
+        }
+    });
 });
 
 $j('#floatbtn').click(function() {
@@ -106,6 +125,14 @@ $j('#floatbtn').click(function() {
         $j('#tagmanager').css({float: "right"});
         $j('#hidebtn').prop('hidden', false);
         $j('#editbtn').prop('hidden', false);
+        if (Cookies.get('showManager', true)) {
+            $j('#tagmanager').show();
+        } else {
+            $j('#hidebtn').removeClass('active');
+            $j('#hidebtn').text('Show');
+            Cookies.remove('showManager');
+            $j('#tagmanager').hide();
+        }
         $j('#tagmanager').detach().appendTo('.manwrapper');
     }
 });
@@ -142,7 +169,7 @@ if ($j('link[title="afterdark"]').length) {
     console.log('ETA: Afterdark Detected!');
     $j('.manwrapper').css({width: "auto", color: "white"});
     $j('.controls').css({float: "right", backgroundColor: "#111", margin: "5px 0px", padding: "3px 0px", width: "175px", color: "#ccc", fontWeight: "bold"});
-    $j('.controls button').css({margin: "5px 1px", width: "40px", backgroundColor: "#666", borderColor: "#DDD", color: "#000", fontFamily: "Arial", fontSize: "13px"});
+    $j('.controls button').css({margin: "5px 1px", width: "40px", backgroundColor: "#666", borderColor: "#DDD", color: "#000", fontFamily: "Arial", fontSize: "13px", lineHeight: "1.25em"});
     $j('.controls #floatbtn').css({width: "25px"});
     $j('p.header').css({fontSize: "1em", fontWeight: "bold", backgroundColor: "#131327", margin: "0px", textAlign: "center", color: "#ccc"});
     $j('#listbox input').css({display: "none"});
@@ -152,12 +179,12 @@ if ($j('link[title="afterdark"]').length) {
 } else {
 $j('.manwrapper').css({width: "auto", color: "white"});
 $j('.controls').css({float: "right", backgroundColor: "rgba(255,255,255,0.15)", margin: "5px 0px", borderRadius: "5px", padding: "3px", width: "200px"});
-$j('.controls button').css({margin: "5px 1px", width: "50px"});
+$j('.controls button').css({margin: "5px 1px", width: "50px", lineHeight: "1.25em"});
 $j('.controls #floatbtn').css({width: "25px"});
 $j('p.header').css({fontSize: "0.5rem", fontWeight: "bold", backgroundColor: "gray", margin: "0px"});
 $j('#listbox input').css({display: "none"});
 $j('#tagmanager').css({float: "right", clear: "both", backgroundColor: "rgba(255,255,255,0.15)", borderRadius: "5px", display: "none", padding: "10px", color: "white"});
-$j('#tagmanager label').css({fontSize: "0.75rem", fontWeight: "bold", borderRadius: "5px", padding: "2px 5px", margin: "1px 3px", display: "inline-block", cursor: "pointer"});
+$j('#tagmanager label').css({fontSize: "0.75rem", fontWeight: "bold", borderRadius: "3px", padding: "2px 5px", margin: "1px 3px", display: "inline-block", cursor: "pointer"});
 $j('#tagmanager #listbox').css({padding: "5px 2px"});
 $j('.general').css({backgroundColor: generalColour});
 $j('.acts').css({backgroundColor: actsColour});
@@ -168,6 +195,7 @@ $j('.custom').css({backgroundColor: customColour});
 }
 
 // Reset form elements
+
 $j('.reset').click(function() {
     $j('input#taginput').val('');
     $j('#listbox input').prop('checked', false);
@@ -175,6 +203,7 @@ $j('.reset').click(function() {
 });
 
 // Push tag list to input box
+
 function updateTextArea() {
     var allVals = [];
 
