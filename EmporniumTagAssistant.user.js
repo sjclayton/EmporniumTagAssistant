@@ -91,6 +91,7 @@ $j('#editbtn').click(function() {
     if (saved) {
         var savedTags = saved.replace(/"/g, '');
     }
+    $j('#hidebtn').prop('hidden', true);
     $j('#editbtn').prop('hidden', true);
     $j("<div id='edit_custom'><p class='header'>Add/edit your custom tags here, separated by commas using the format 'tag1, tag2, tag3' and so on.</p><center><input id='custom_input' type='text' spellcheck='false' style='font: 10pt monospace;'></input>  <button class='controls' id='savebtn'>Save</button></center></div>").insertBefore('#tagmanager p.header:first-child');
     $j('#edit_custom').css({marginBottom: "10px"});
@@ -106,6 +107,7 @@ $j('#editbtn').click(function() {
     $j('#savebtn').click(function() {
         if ($j('#custom_input').val() !== null || '') {
             localStorage.setItem("customTagArray", JSON.stringify($j('#custom_input').val()));
+            //$j('#hidebtn').prop('hidden', false);
             location.reload();
         } else {
             return;
