@@ -6,6 +6,8 @@
 // @author       sjclayton / koukol
 // @match        *://*.empornium.me/torrents.php?*
 // @match        *://*.empornium.sx/torrents.php?*
+// @exclude      *://*.empornium.me/torrents.php?type=*
+// @exclude      *://*.empornium.sx/torrents.php?type=*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @require      https://cdn.jsdelivr.net/npm/js-cookie@2.2.0/src/js.cookie.min.js
 // @grant        none
