@@ -4,8 +4,7 @@
 // @version      1.2
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
-// @match        *://*.empornium.me/torrents.php?*
-// @match        *://*.empornium.sx/torrents.php?*
+// @include      /^https?://www\.empornium\.(me|sx)/torrents\.php\?*/
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @require      https://cdn.jsdelivr.net/npm/js-cookie@2.2.0/src/js.cookie.min.js
 // @grant        none
@@ -18,11 +17,11 @@ var $j = $.noConflict(true);
 // Feel free to modify any of the tags here or add your own.
 // Tags added to the Custom section will be saved and persist across script updates.
 
-var general = ["480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov", "1on1"];
-var positions = ["doggy.style", "missionary", "prone.bone", "cowgirl", "reverse.cowgirl", "spooning", "sideways", "anal.doggy", "anal.missionary", "anal.prone.bone", "anal.cowgirl", "anal.reverse.cowgirl", "anal.spooning", "anal.sideways"];
-var acts = ["blowjob", "handjob", "creampie", "squirting", "anal", "facial", "ball.sucking"];
-var features = ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "small.tits", "medium.tits", "big.tits", "big.ass", "shaved"];
-var clothing = ["lingerie", "stockings", "garter.belt", "fishnets"];
+var general = ["480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov", "1on1", "straight", "solo", "teen", "fetish", "interracial", "lesbian", "toys", "mature", "images", "all.girl", "bdsm", "threesome", "ffm", "transsexual", "shemale", "femdom", "homemade"];
+var positions = ["doggy.style", "missionary", "prone.bone", "cowgirl", "reverse.cowgirl", "spooning", "sideways", "anal.doggy", "anal.missionary", "anal.prone.bone", "anal.cowgirl", "anal.reverse.cowgirl", "anal.spooning", "anal.sideways", "standing.doggy"];
+var acts = ["blowjob", "handjob", "creampie", "squirting", "anal", "facial", "ball.sucking", "oral", "cumshot", "cunnilingus", "masturbation", "cum.in.mouth", "deepthroat", "fingering", "cum.on.tits", "rimming", "titfuck", "ass.to.mouth", "cum.swallow", "double.penetration", "kissing", "69", "open.mouth.facial", "m2f.cunnilingus", "female.completion", "bondage", "face.fuck"];
+var features = ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "small.tits", "medium.tits", "big.tits", "big.ass", "shaved", "tattoo", "trimmed", "petite", "bubble.butt", "long.hair", "piercings", "bbw", "hairy"];
+var clothing = ["lingerie", "stockings", "garter.belt", "fishnets", "high.heels"];
 
 // Customize your section colours here. (Only used if not using the Afterdark stylesheet.)
 
@@ -107,7 +106,6 @@ $j('#editbtn').click(function() {
     $j('#savebtn').click(function() {
         if ($j('#custom_input').val() !== null || '') {
             localStorage.setItem("customTagArray", JSON.stringify($j('#custom_input').val()));
-            //$j('#hidebtn').prop('hidden', false);
             location.reload();
         } else {
             return;
