@@ -4,8 +4,7 @@
 // @version      1.2
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
-// @match        *://*.empornium.me/torrents.php?id=*
-// @match        *://*.empornium.sx/torrents.php?id=*
+// @include      /^https?://www\.empornium\.(me|sx)/torrents\.php\?id=*/
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @require      https://cdn.jsdelivr.net/npm/js-cookie@2.2.0/src/js.cookie.min.js
 // @grant        none
