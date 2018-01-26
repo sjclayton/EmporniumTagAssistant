@@ -18,11 +18,22 @@ var $j = $.noConflict(true);
 // Feel free to modify any of the tags here or add your own.
 // Tags added to the Custom section will be saved and persist across script updates.
 
-var general = ["480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov", "1on1", "straight", "solo", "teen", "fetish", "interracial", "lesbian", "toys", "mature", "images", "all.girl", "bdsm", "threesome", "ffm", "transsexual", "shemale", "femdom", "homemade"];
-var positions = ["doggy.style", "missionary", "prone.bone", "cowgirl", "reverse.cowgirl", "spooning", "sideways", "anal.doggy", "anal.missionary", "anal.prone.bone", "anal.cowgirl", "anal.reverse.cowgirl", "anal.spooning", "anal.sideways", "standing.doggy"];
-var acts = ["blowjob", "handjob", "creampie", "squirting", "anal", "facial", "ball.sucking", "oral", "cumshot", "cunnilingus", "masturbation", "cum.in.mouth", "deepthroat", "fingering", "cum.on.tits", "rimming", "titfuck", "ass.to.mouth", "cum.swallow", "double.penetration", "kissing", "69", "open.mouth.facial", "m2f.cunnilingus", "female.completion", "bondage", "face.fuck"];
-var features = ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "small.tits", "medium.tits", "big.tits", "big.ass", "shaved", "tattoo", "trimmed", "petite", "bubble.butt", "long.hair", "piercings", "bbw", "hairy"];
-var clothing = ["lingerie", "stockings", "garter.belt", "fishnets", "high.heels"];
+var general =   ["360p", "480p", "540p", "720p", "1080p", "2160p", "hd", "sd", "full.hd", "ultra.hd", "60.fps", "mp4", "picset", "mega.pack", "hardcore", "softcore", "amateur", "pov", "1on1", "straight", "solo", "teen",
+                 "fetish", "interracial", "lesbian", "toys", "mature", "images", "all.girl", "bdsm", "threesome", "ffm", "transsexual", "shemale", "femdom", "homemade", "orgy", "gangbang", "gay", "some.pov",
+                 "mmf", "condom", "siterip", "split.scenes", "incest", "outdoor", "indoor", "oil", "dildo", "hitachi.magic.wand", "vibrator", "piss", "strap.on", "male.on.shemale", "feet", "closeup", "webcam",
+                 "virtual.reality", "incest.roleplay", "buttplug", "asian", "milf", "european", "japanese", "jav", "latina", "nude", "censored", "uncensored", "white.female.black.male", "black", "ebony", "british",
+                 "russian", "white", "eastern.european", "czech", "bed", "schoolgirl", "paysite", "gonzo", "american"];
+var positions = ["doggy.style", "missionary", "prone.bone", "cowgirl", "reverse.cowgirl", "spooning", "sideways", "anal.doggy", "anal.missionary", "anal.prone.bone", "anal.cowgirl", "anal.reverse.cowgirl",
+                 "anal.spooning", "anal.sideways", "standing.doggy", "69", "side.fuck"];
+var acts =      ["blowjob", "handjob", "creampie", "squirting", "anal", "facial", "ball.sucking", "oral", "cumshot", "cunnilingus", "masturbation", "cum.in.mouth", "deepthroat", "fingering", "cum.on.tits", "rimming",
+                 "titfuck", "ass.to.mouth", "cum.swallow", "double.penetration", "kissing", "open.mouth.facial", "m2f.cunnilingus", "female.completion", "bondage", "face.fuck", "female.on.female.cunnnilingus",
+                 "blowjob.to.completion", "handjob.to.completion", "male.completion", "2.girl.blowjob", "cum.on.stomach", "cum.on.ass", "cum.on.pussy", "eye.contact", "gape", "anal.gape", "anal.fingering", "gagging",
+                 "face.sitting", "pussy.to.mouth", "tease", "male.rimming.female", "female.rimming.male", "humiliation", "spanking", "pov.blowjob", "jerk.off.instruction", "female.rimming.female", "toy.in.ass", "anal.creampie",
+                 "anal.dildo", "blowjob.after.cumshot", "striptease", "dirty.talk", "massage", "tit.sucking", "orgasm", "clit.rubbing", "footjob"];
+var features =  ["brunette", "blonde", "redhead", "natural.tits", "fake.tits", "small.tits", "medium.tits", "big.tits", "big.ass", "shaved", "tattoo", "trimmed", "petite", "bubble.butt", "long.hair", "piercings",
+                 "bbw", "hairy", "lightly.tattooed", "moderately.tattooed", "heavily.tattooed", "pierced.belly.button", "pierced.tongue", "pierced.nipples", "chubby", "short.hair", "glasses", "black.hair", "tanlines",
+                 "hairy.pussy", "skinny", "slim", "barefoot", "pale", "big.areolas", "big.natural.tits", "big.cock", "big.black.cock", "big.fake.tits", "small.natural.tits"];
+var clothing =  ["lingerie", "stockings", "garter.belt", "fishnets", "high.heels", "pantyhose", "socks", "boots", "bikini", "shoes.on", "under.knee.socks", "over.knee.socks"];
 
 // Customize your section colours here. (Only used if not using the Afterdark stylesheet.)
 
