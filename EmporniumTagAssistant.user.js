@@ -43,9 +43,13 @@ var featuresColour = "#8d0aa0";
 var clothingColour = "#2da3a3";
 var customColour = "#6a103c";
 
+// Enable/disable alphabetical (natural sort) tag sorting
+
+//var sortTags = false;
+var sortTags = true;
 
 
-/// Script -- Do not change anything below unless you know what you're doing, things might break.
+/// Script -- Do NOT change anything below unless you know what you're doing, things are likely to break.
 
 var customSaved = localStorage.getItem("customTagArray");
 if (customSaved) {
@@ -156,7 +160,9 @@ function inputLayout(list) {
 
     $j("#tagmanager").append($j("<p class='header'>" + id + "</p>"));
     $j("#tagmanager").append($j(div));
-    list.sort(collator.compare);
+    if (sortTags == true) {
+        list.sort(collator.compare);
+    }
     $j.each(list, function(index, value) {
         var checkbox = "<input type='checkbox' id=" + value + " value=" + value + " name=" + value + "><label for=" + value + ">" + value + "</label>";
         $j("." + (name)).append($j(checkbox));
