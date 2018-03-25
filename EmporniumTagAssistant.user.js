@@ -81,7 +81,7 @@ if ($j('link[title="afterdark"]').length) {
 } else {
     $j("<style type='text/css'> #listbox .highlight{background-color: black; border-color: white; border-width: 1px; border-style: solid;} </style>").appendTo(".manwrapper");
 }
-$j("<center><div class='controls'><p class='header'>Tag Assistant</p><button class='' id='hidebtn' title='Show/Hide Tag Assistant'>Show</button> <button id='editbtn' title='Add/Edit Custom Tags'>Edit</button> <button class='reset' title='Clear All Selected Tags'>Reset</button> <button id='floatbtn' title='Toggle Float'>&#8648;</button></div></center>").appendTo('.manwrapper');
+$j("<center><div class='controls'><p class='header'>Tag Assistant</p><button class='' id='hidebtn' title='Show/Hide Tag Assistant'>Show</button> <button id='editbtn' title='Add/Edit Custom Tags'>Edit</button> <button class='reset' title='Clear All Selected Tags'>Reset</button> <button id='floatbtn' title='Toggle Float'>&#x25b2;</button></div></center>").appendTo('.manwrapper');
 $j("<div id='tagmanager'></div>").appendTo('.manwrapper');
 $j('.autoresults input:button').addClass('reset');
 
