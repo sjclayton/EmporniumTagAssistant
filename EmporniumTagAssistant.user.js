@@ -213,13 +213,20 @@ $j('.custom').css({backgroundColor: customColour});
 // Reset form elements
 
 function resetForm() {
-    $j('input#taginput').val('');
     $j('#listbox input').prop('checked', false);
     $j('label').removeClass('highlight');
 }
 
-$j('.reset, :input[value="+"]').on('click', resetForm);
-$j('input#taginput').change(resetForm);
+$j('.reset, :input[value="+"]').click(function () {
+    resetForm();
+    $j('input#taginput').val('');
+});
+
+$j(document).keypress(function(event) {
+    if ($j("input#taginput").is(":focus") && event.key == "Enter") {
+        resetForm();
+    }
+});
 
 // Push tag list to input box
 
@@ -241,7 +248,6 @@ function updateTextArea() {
 
 $j(function() {
     $j('#tagmanager input[type=checkbox]').click(updateTextArea);
-    updateTextArea();
 
     if (Cookies.get('showManager', true)) {
         $j('#editbtn').prop('hidden', false);
