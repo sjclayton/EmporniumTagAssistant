@@ -212,16 +212,14 @@ $j('.custom').css({backgroundColor: customColour});
 
 // Reset form elements
 
-$j('.reset').click(function() {
+function resetForm() {
     $j('input#taginput').val('');
     $j('#listbox input').prop('checked', false);
     $j('label').removeClass('highlight');
-});
+}
 
-$j(':input[value="+"]').click(function() {
-    $j('#listbox input').prop('checked', false);
-    $j('label').removeClass('highlight');
-});
+$j('.reset, :input[value="+"]').on('click', resetForm);
+$j('input#taginput').change(resetForm);
 
 // Push tag list to input box
 
