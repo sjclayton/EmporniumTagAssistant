@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EmporniumTagAssistant
 // @namespace    SJC
-// @version      1.2.1
+// @version      1.2.2
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
 // @include      /^https?://www\.empornium\.(me|sx)/torrents\.php\?id=*/
