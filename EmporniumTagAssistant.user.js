@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EmporniumTagAssistant
 // @namespace    SJC
-// @version      1.2.2
+// @version      1.2.3
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
 // @include      /^https?://www\.empornium\.(me|sx)/torrents\.php\?id=*/
@@ -75,8 +75,8 @@ custom.name = "custom";
 
 // Layout setup
 
-$j("<div class='manwrapper'></div>").appendTo('.box_tags');
-if ($j('link[title="afterdark"]').length) {
+$j("<div class='manwrapper'></div>").appendTo('#tag_container');
+if ($j('link[href*="afterdark/style.css"]').length) {
     $j("<style type='text/css'> #listbox .highlight{background-color: #5A8BB8; border-color: #7BA3C1; border-width: 1px; border-style: solid; color: white; fontSize: 1em;} </style>").appendTo(".manwrapper");
 } else {
     $j("<style type='text/css'> #listbox .highlight{background-color: black; border-color: white; border-width: 1px; border-style: solid;} </style>").appendTo(".manwrapper");
@@ -110,7 +110,7 @@ $j('#editbtn').click(function() {
     $j("<div id='edit_custom'><p class='header'>Add/edit your custom tags here, separated by commas using the format 'tag1, tag2, tag3' and so on.</p><center><input id='custom_input' type='text' spellcheck='false' style='font: 10pt monospace;'></input>  <button class='controls' id='savebtn'>Save</button></center></div>").insertBefore('#tagmanager p.header:first-child');
     $j('#edit_custom').css({marginBottom: "10px"});
     $j('#edit_custom input').css({width: "500px", margin: "5px"});
-    if ($j('link[title="afterdark"]').length) {
+    if ($j('link[href*="afterdark/style.css"]').length) {
         $j('#savebtn').css({margin: "5px 1px", width: "40px", backgroundColor: "#666", borderColor: "#DDD", color: "#000", fontFamily: "Arial", fontSize: "13px", lineHeight: "1.25em"});
         $j('p.header').css({fontSize: "1em", fontWeight: "bold", backgroundColor: "#131327", margin: "0px", textAlign: "center", color: "#ccc"});
     } else {
@@ -181,7 +181,7 @@ if (customTemp) {
 
 // Style stuff
 
-if ($j('link[title="afterdark"]').length) {
+if ($j('link[href*="afterdark/style.css"]').length) {
     console.log('ETA: Afterdark Detected!');
     $j('.manwrapper').css({width: "auto", color: "white"});
     $j('.controls').css({float: "right", backgroundColor: "#111", margin: "5px 0px", padding: "3px 0px", width: "175px", color: "#ccc", fontWeight: "bold"});
