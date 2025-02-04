@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EmporniumTagAssistant
 // @namespace    SJC
-// @version      1.2.4
+// @version      1.2.5
 // @description  Userscript to add a tagging assistant to Empornium
 // @author       sjclayton / koukol
 // @include      /^https?://www\.empornium\.(is|sx)/torrents\.php\?id=*/
@@ -217,9 +217,8 @@ function resetForm() {
     $j('label').removeClass('highlight');
 }
 
-$j('.reset, :input[value="+"]').click(function () {
+$j('.reset, :input[value="+"]').on("mousedown", function () {
     resetForm();
-    $j('input#taginput').val('');
 });
 
 $j(document).keypress(function(event) {
